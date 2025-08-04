@@ -4,12 +4,16 @@ import { Controller, useForm } from 'react-hook-form'
 
 type FromData = {
   name: string
+  date: string
 }
 
 export default function App() {
-  const { control, handleSubmit } = useForm<FromData>({defaultValues: {
-    name: "",
-  }})
+  const { control, handleSubmit } = useForm<FromData>({
+    defaultValues: {
+      name: '',
+      date: '',
+    },
+  })
 
   function onSubmit(data: FromData) {
     console.log(data)
@@ -30,7 +34,13 @@ export default function App() {
         <input type="text" placeholder="Nome do evento" />
         <span className="error">Nome é obrigatório</span>
 
-        <input type="date" placeholder="Nome do evento" lang="pt-BR" />
+        <Controller
+          control={control}
+          name="date"
+          render={({ field }) =>
+            <input type="date" placeholder="Nome do evento" lang="pt-BR" {...field}/>
+          }
+        />
 
         <select defaultValue="">
           <option value="" disabled>
