@@ -1,10 +1,17 @@
 import './App.css'
+
 import { Controller, useForm } from 'react-hook-form'
 
-export default function App() {
-  const { control } = useForm()
+type FromData = {
+  name: string
+}
 
-  function onSubmit(data){
+export default function App() {
+  const { control, handleSubmit } = useForm<FromData>({defaultValues: {
+    name: "",
+  }})
+
+  function onSubmit(data: FromData) {
     console.log(data)
   }
 
@@ -12,12 +19,12 @@ export default function App() {
     <div>
       <h1>Evento</h1>
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name="name"
           render={({ field }) => (
-            <input type="date" placeholder="Nome do evento" {...field} />
+            <input type="text" placeholder="Nome do evento" {...field} />
           )}
         />
         <input type="text" placeholder="Nome do evento" />
