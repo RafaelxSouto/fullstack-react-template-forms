@@ -1,26 +1,26 @@
 import './App.css'
-import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 
 export default function App() {
-  const [name, setName] = useState('')
+  const { control } = useForm()
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-
-    setName('')
+  function onSubmit(data){
+    console.log(data)
   }
 
   return (
     <div>
-      <h1>Evento {name}</h1>
+      <h1>Evento</h1>
 
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="Nome do evento"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+      <form>
+        <Controller
+          control={control}
+          name="name"
+          render={({ field }) => (
+            <input type="date" placeholder="Nome do evento" {...field} />
+          )}
         />
+        <input type="text" placeholder="Nome do evento" />
         <span className="error">Nome é obrigatório</span>
 
         <input type="date" placeholder="Nome do evento" lang="pt-BR" />
